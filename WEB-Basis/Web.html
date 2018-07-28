@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  这个是 Emmet 语法
+  输入 html:5 回车 就可以快速创建一个 html5 文档
+
+  然后熟悉一些html标签
+  <h1>这是一个h1标签</h1>
+  下面教你用 Emmet 语法 快速 创建 html 标签 
+  比如 快速 创建 6 个 h$ 标签
+  <h1>这是h1标题</h1>
+  <h2>这是h2标题</h2>
+  <h3 class="test">这是h3标题</h3> <!-- 这个标题 也属于 test 类 --> <!-- 即这个元素 -->
+  <h4>这是h4标题</h4>
+  <h5>这是h5标题</h5> <!-- 这里如果再指定一个元素 错误X --> <!-- 实际上,同一个id指定多个元素,浏览器会为多个元素都会渲染样式, 但是这样
+  不具有语义性,不推荐这样做 一般来说 如果这个 id 指定唯一一个元素 class 指定多个元素 -->
+  <h6>这是h6标题</h6>
+  在html中一个只有6个大小的标题
+  再来试试其它标签
+  如 段落标签
+  <p>这是一个段落</p>
+  如 典型的 内联标签
+  <span class="test" id="test">这是一个典型的内联元素</span> <!-- 这里 id 已经指定了一个元素 --> <!-- 获取到的是这个元素 -->
+  再试试 典型的 块标签
+  <div></div>
+  具体还有好多html标签, 这里就不再一一列举了
+  下面预览一下这个html文档
+
+  再来熟悉一下css的样式控制
+  html的样式控制是通过style标签, 可以在style标签中书写样式规则
+
+  <img src="http://p40kjburh.bkt.clouddn.com/18-7-10/75280187.jpg" alt="" id="cursorImg"> <!-- 刚开始是显示在网页上的 -->
+
+  <style>
+    /* css中最重要的概念就是 选择器
+      选择器 顾名思义 就是 如何选中一个或多个 html 元素
+      最简单的选择器是 标签选择器
+     */
+     p { /* 这个就是标签选择器 选中所有 p 标签 */
+       background: #666; /* css规则 即 以 属性: 值; 的格式规定被选中的元素的样式 这里让所有的p标签的背景变成 #666 色 */
+     }
+     /* 第2类选择器 类名选择器 即匹配选择的属性中 class 值相同的元素 举个例子 */
+     /* 类名选择器与标签选择器的区别 是 以 . 开头 */
+     .test { /* 选中所有类名是 test 的元素 类名指定的元素可以不止一个 */
+      font-size: 25px; /* 让所有类名为test的元素的字体大小变为 25px */
+      color: red;
+     }
+     /* 第3类选择器 id 选择器 */
+     /* 和类名选择器一样的用法 唯一的区别是 多个元素可以共用用一个类名 但是id只能 唯一 指定一个元素 */
+     /*  id选择器以 # 开头 */
+     #test {
+       background: purple;
+     }
+     /* 其实除此之外还有好多选择器 比如关系选择器(如父子关系选择器、兄弟关系选择器、后代关系选择器)等 还有 CSS3 提供的 first-child() 等高级选择器 */
+     /* css中还有一个重要的概念 那就是 伪类的 概念 */
+     /* 主要包括以下几个 :hover 鼠标悬浮是元素的样式 :visited 该链接被访问过元素的样式 :active 元素被点击时元素的样式 :link 链接未被访问时的样式
+        一般来说 :hover 和 :active 使用频率最高
+      */
+      h1:hover {
+        font-size: 58px; /* 当鼠标移至 h1 元素上时 它的字体大小变为 58px */
+        background: blue; /* 用于交互体验 */
+      }
+      h2:active {
+        opacity: .2; /* 当 h2 被点击时 它的透明度会变成 0.2 */
+      }
+      /* 这差不多就是 css 的基础知识了 */
+      #cursorImg {
+        position: absolute;
+        display: none; /* 绝对定位、并让图片隐藏起来 */
+      }
+  </style>
+
+  <!--
+    下面我们再来了解一下 浏览器 脚本的使用方法
+  -->
+  <script>
+    /* 这样的写法 即 当浏览器识别出该 script标签后会立即从上往下执行所有的脚本内容 */
+    // alert("这是我写的第一个js脚本");
+    // 尝试获取一个DOM元素
+    // var span = document.getElementById("test")
+    // alert(span);
+
+    // 那说说一个新的 API 在 ES5 中 可以这样快速地获取元素
+    var h = document.querySelector(".test") /* 匹配到的是第一个 class="test" 的元素 */
+    // alert(h)
+    // 那怎么获取所有的 class="test" 的元素呢
+    var testColl = document.querySelectorAll('.test')
+    // alert(testColl) // 发现是一个 NodeList 类 其实就是 一个 类数组
+    // for(ele in testColl) alert(ele) //把这个类的所有属性和方法打印出来了
+    // 也可以这样
+    // console.log(testColl)
+    /* 大概这就是 web 最基础的用法了 */
+    
+    // 先写鼠标悬浮事件
+    // 最终的效果就设为 当鼠标移至 span 标签上是 图片跟随在鼠标的右下角吧
+    var span = document.querySelector('#test') // 获取span对象
+    span.addEventListener('mousemove', function(e){ // DOM3 级提供的事件 API 参数是事件对象
+      showImg(e); //需要把这个事件对象给传进去 便于动态获取光标的位置信息
+    })
+
+    function showImg(e) {
+      var img = document.querySelector('#cursorImg') /* 取得图片对象 */
+      img.style.left = e.clientX
+      img.style.right = e.clientY
+      img.style.display = "block" //显示图片
+    }
+  </script>
+</body>
+</html>
