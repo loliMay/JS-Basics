@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>箭头函数没有this绑定</title>
+</head>
+<body>
+  <style>
+    html {
+      height: 100%;
+      background: rgb(32,32,32);
+    }
+    img {
+      width: 100%;
+    }
+  </style>
+  <img src="http://images.lolimay.cn/18-7-29/41633152.jpg" alt="">
+  <script>
+  // const PageHandler = {
+  //   id: '123456',
+  //   init() {
+  //     document.addEventListener('click', function(event) {
+  //     //this绑定的是事件目标对象的引用(在这里引用的是document而不是PageHandler)
+  //     this.doSomething(event.type) //Uncaught TypeError: this.doSomething is not a function at HTMLDocument(说明this绑定的对象是document而不是Pagehandler)
+  //     }, false)
+  //   },
+  //   doSomething(type) {
+  //   console.log(`Handing ${type} for ${this.id}`)
+  //   }
+  // }
+
+  /**
+   * ES5的解决方法: 使用bind(this)显式指定this引用的对象
+   */
+  // const PageHandler = {
+  //   id: '123456',
+  //   init() {
+  //     document.addEventListener('click', (function(event) {
+  //       this.doSomething(event.type)
+  //     }).bind(this), false) //用bind()创建一个新的函数并显式指定this为Pagehandler
+  //   },
+  //   doSomething(type) {
+  //   console.log(`Handing ${type} for ${this.id}`)
+  //   }
+  // }
+
+  /**
+   * 用箭头函数解决this绑定的问题
+   * 由于箭头函数中没有this绑定，其this绑定通过查找作用域链找到，一般为最近一层非箭头函数的this，直到全局作用域对象
+   */
+   const PageHandler = {
+    id: '123456',
+    init() {
+      document.addEventListener('click', event => this.doSomething(event.type), false) //使用箭头函数解决this绑定不是预期对象的方法又简洁又好理解
+    },
+    doSomething(type) {
+    console.log(`Handing ${type} for ${this.id}`)
+    }
+  }
+  
+  PageHandler.init() //初始化页面事件处理程序
+  </script>
+</body>
+</html>
